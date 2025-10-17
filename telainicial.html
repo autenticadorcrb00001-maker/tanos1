@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conta — Beblue (Mock)</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --primary-start: #1462d8;
+      --primary-end: #0b3e86;
+      --muted: rgba(255,255,255,0.65);
+    }
+
+    body{
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, var(--primary-start) 0%, var(--primary-end) 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      height: 100vh;
+    }
+
+    .phone{
+      width: 100%;
+      max-width: 400px;
+      height: 100vh; /* preenche toda a altura do celular */
+      background: linear-gradient(180deg, var(--primary-start) 0%, var(--primary-end) 100%);
+      border-radius: 0; /* tela inteira sem bordas arredondadas */
+      box-shadow: none;
+      overflow-y: auto;
+      border: none;
+      transform: rotate(0deg);
+    }
+
+    .screen{
+      padding: 18px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.1);
+    }
+
+    .seg-bar{
+      height:6px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#24d06a,#ffd24a,#00b0ff);
+    }
+
+    .glass-card{
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+
+    .glass-card:hover{
+      background: rgba(255,255,255,0.12);
+    }
+
+    .small-muted{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .grid-scroll {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .grid-scroll::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="screen">
+      <!-- Topo -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <button class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/90">✕</button>
+          <div class="flex items-center gap-2 text-white">
+            <img src="https://ui-avatars.com/api/?name=Elisa+Nunes&background=ffffff&color=0b3e86&size=48" alt="avatar" class="w-8 h-8 rounded-full border border-white/30" />
+            <div class="text-sm font-semibold">Elisa Nunes</div>
+          </div>
+          <div class="w-8"></div>
+        </div>
+
+        <!-- Saldo -->
+        <div class="chip text-white text-xs mb-3">
+          <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+          <span class="small-muted">SALDO TOTAL DISPONÍVEL</span>
+        </div>
+
+        <div id="saldo" class="text-4xl font-extrabold leading-tight mb-4"></div>
+        <div class="seg-bar w-full mb-4"></div>
+
+        <!-- Ações rápidas -->
+        <div class="grid grid-cols-3 gap-2 mb-4">
+          <a href="recarga.html" class="glass-card p-3 text-center block">
+            <div class="text-xs small-muted">RECARGA</div>
+            <div class="font-semibold mt-1">R$ 250,00</div>
+          </a>
+          <a href="pix.html" class="glass-card p-3 text-center block">
+            <div class="text-xs small-muted">PIX</div>
+            <div class="font-semibold mt-1">R$ 5.250,00</div>
+          </a>
+          <div class="glass-card p-3 text-center">
+            <div class="text-xs small-muted">CASHBACK</div>
+            <div class="font-semibold mt-1">R$ 120,00</div>
+          </div>
+        </div>
+
+        <button onclick="window.location.href='credito.html'" class="w-full py-3 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-sm shadow-sm mb-4">
+          CONSUMIR 1º O SALDO DE CASHBACK
+        </button>
+
+        <!-- Menu inferior -->
+        <div class="grid grid-cols-3 gap-3 mb-4">
+          <a href="credito.html" class="glass-card p-3 text-center block">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-4.418 0-8 1.79-8 4v4h16v-4c0-2.21-3.582-4-8-4z"/></svg>
+            <div class="mt-2 text-xs small-muted">Meu Crédito</div>
+          </a>
+
+          <a href="extrato.html" class="glass-card p-3 text-center block">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18"/>
+            </svg>
+            <div class="mt-2 text-xs small-muted">Meu Extrato</div>
+          </a>
+
+          <div class="glass-card p-3 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v8m4-4H8"/>
+            </svg>
+            <div class="mt-2 text-xs small-muted">Transf. Multiplus</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé / Destaques -->
+      <div class="mb-4 text-xs small-muted">
+        Destaques
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Gera saldo aleatório entre 3440 e 5220
+    const saldo = Math.floor(Math.random() * (5220 - 3440 + 1)) + 3440;
+    document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR')},00`;
+  </script>
+</body>
+</html>

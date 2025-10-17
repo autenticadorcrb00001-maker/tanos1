@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recarga de Celular — Elisa Nunes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #0052cc, #007bff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #0052cc, #007bff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px;
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .header .avatar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header .avatar div {
+      background: white;
+      color: #003b99;
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      justify-content: center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      font-size: 0.875rem;
+    }
+
+    input, select {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    input::placeholder {
+      color: #6b7280;
+    }
+
+    select {
+      background-color: white;
+      color: #003b99;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,<svg fill='white' height='18' viewBox='0 0 20 20' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 7l3 3 3-3z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1rem;
+    }
+
+    button {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      background-color: #00c3ff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #00a6e6;
+    }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+
+    @media (max-width: 400px) {
+      .phone {
+        padding: 16px;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <!-- Header -->
+    <div class="header">
+      <button id="backBtn" class="text-white text-xl font-bold">✕</button>
+      <div class="avatar">
+        <div>EN</div>
+        <span class="font-semibold text-sm">Elisa Nunes</span>
+      </div>
+      <div style="width:32px;"></div>
+    </div>
+
+    <!-- Título -->
+    <div class="chip">
+      📱 Recarga de Celular
+    </div>
+
+    <h2>Digite os dados da recarga</h2>
+
+    <!-- Campos -->
+    <div class="flex flex-col gap-4">
+      <input type="text" placeholder="Número do celular (DDD + número)">
+      <select>
+        <option value="" disabled selected>Selecione o valor da recarga</option>
+        <option>R$ 10,00</option>
+        <option>R$ 20,00</option>
+        <option>R$ 30,00</option>
+        <option>R$ 50,00</option>
+        <option>R$ 100,00</option>
+      </select>
+      <button>Fazer Recarga</button>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="footer">
+      Seu saldo disponível: <strong>R$ 5.250,00</strong>
+    </div>
+  </div>
+
+  <script>
+    // Botão voltar para index.html
+    document.getElementById('backBtn').addEventListener('click', function() {
+      window.location.href = 'telainicial.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meu Crédito — Elisa Nunes</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --primary-start: #1462d8;
+      --primary-end: #0b3e86;
+      --muted: rgba(255,255,255,0.65);
+    }
+
+    body{
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, var(--primary-start) 0%, var(--primary-end) 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      height: 100vh;
+    }
+
+    .phone{
+      width: 100%;
+      max-width: 400px;
+      height: 100vh; /* preenche toda a altura do celular */
+      background: linear-gradient(180deg, var(--primary-start) 0%, var(--primary-end) 100%);
+      border-radius: 0;
+      box-shadow: none;
+      overflow-y: auto;
+      border: none;
+      transform: rotate(0deg);
+    }
+
+    .screen{
+      padding: 18px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .seg-bar{
+      height:6px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#24d06a,#ffd24a,#00b0ff);
+    }
+
+    .glass-card{
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+
+    .glass-card:hover{
+      background: rgba(255,255,255,0.12);
+    }
+
+    .small-muted{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    button{
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="screen">
+
+      <!-- Cabeçalho -->
+      <div class="flex items-center justify-between mb-4">
+        <a href="telainicial.html" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/90 hover:bg-white/20 transition">←</a>
+        <div class="flex items-center gap-2 text-white">
+          <img src="https://ui-avatars.com/api/?name=Elisa+Nunes&background=ffffff&color=0b3e86&size=48" alt="avatar" class="w-8 h-8 rounded-full border border-white/30" />
+          <div class="text-sm font-semibold">Elisa Nunes</div>
+        </div>
+        <div class="w-8"></div>
+      </div>
+
+      <!-- Título -->
+      <div class="text-center mb-4">
+        <span class="bg-white/10 text-white px-4 py-1 text-sm rounded-full shadow-sm">💳 Meu Crédito</span>
+      </div>
+
+      <!-- Saldo disponível -->
+      <div class="text-center text-white mb-4">
+        <div class="text-xs opacity-80">SALDO TOTAL DISPONÍVEL</div>
+        <div id="saldo" class="text-4xl font-extrabold mt-2"></div>
+        <div class="mt-3 seg-bar mx-auto w-11/12"></div>
+      </div>
+
+      <!-- Cartão com informações -->
+      <div class="glass-card p-5 text-white text-center mt-6">
+        <div class="text-lg font-semibold mb-1">Limite de Crédito</div>
+        <div class="text-2xl font-extrabold mb-2">R$ 7.000,00</div>
+        <div class="text-sm small-muted">Crédito disponível para uso imediato</div>
+      </div>
+
+      <!-- Opções -->
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button class="py-3 bg-[#00c3ff]/90 hover:bg-[#00a6e6] text-white font-semibold rounded-xl shadow-sm transition">Usar Crédito</button>
+        <button class="py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl shadow-sm transition">Aumentar Limite</button>
+      </div>
+
+      <!-- Rodapé -->
+      <div class="mt-8 text-center text-xs small-muted">
+        Última atualização: <span class="opacity-80">16/10/2025 - 20:00</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Gera saldo aleatório entre 3440 e 5220
+    const saldo = Math.floor(Math.random() * (5220 - 3440 + 1)) + 3440;
+    document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR')},00`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extrato de Pagamentos — Elisa Nunes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #0052cc, #007bff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #0052cc, #007bff);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 24px;
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .header .back-btn {
+      font-size: 1.25rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      background-color: #003b99;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .header .back-btn:hover {
+      background-color: #0052cc;
+    }
+
+    .header .title {
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      justify-content: center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .empty-extract {
+      background-color: #0048b8;
+      border-radius: 24px;
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 250px;
+    }
+
+    .empty-extract p {
+      text-align: center;
+      margin: 2px 0;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+
+    @media (max-width: 400px) {
+      .phone {
+        padding: 16px;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <!-- Header -->
+    <div class="header">
+      <a href="telainicial.html" class="back-btn">←</a>
+      <div class="title">Elisa Nunes</div>
+      <div style="width:36px;"></div>
+    </div>
+
+    <!-- Título -->
+    <div class="chip">
+      📜 Extrato de Pagamentos
+    </div>
+
+    <h2>Últimas movimentações</h2>
+
+    <!-- Extrato vazio -->
+    <div class="empty-extract">
+      <div class="text-center">
+        <div class="text-5xl mb-3">📂</div>
+        <p class="text-gray-200 font-semibold text-sm">Nenhuma movimentação encontrada</p>
+        <p class="text-gray-300 text-xs mt-1">Suas transações aparecerão aqui</p>
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="footer">
+      Saldo total disponível: <strong>R$ 5.250,00</strong>
+    </div>
+  </div>
+
+</body>
+</html>
