@@ -1,229 +1,265 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enviar PIX — Elisa Nunes</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
-    :root{
-      --primary-start: #1462d8;
-      --primary-end: #0b3e86;
-      --muted: rgba(255,255,255,0.65);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pix - Elisa Nunes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            /* Cor de fundo baseada na imagem, um azul mais claro no topo e mais escuro na base */
+            --primary-start: #1462d8; /* Azul claro para o topo */
+            --primary-end: #0b3e86; /* Azul escuro para a base */
+            --bg-color: #ffffff; /* Fundo do conteúdo branco */
+            --text-color: #333333; /* Cor principal do texto */
+            --icon-color: #71717a; /* Cinza para os ícones */
+            --line-color: #e5e7eb; /* Cor da linha divisória sutil */
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--primary-start), var(--primary-end));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      height: 100vh;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Fundo gradiente apenas para o viewport, se o conteúdo não for 100% da tela */
+            background: linear-gradient(180deg, var(--primary-start), var(--primary-end));
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinha o conteúdo ao topo */
+            margin: 0;
+            height: 100vh;
+        }
 
-    .phone {
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      background: linear-gradient(180deg, var(--primary-start), var(--primary-end));
-      border-radius: 0;
-      box-shadow: none;
-      overflow-y: auto;
-      border: none;
-      position: relative;
-    }
+        .phone {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--bg-color); /* Fundo branco para a tela do app */
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Estilo do Header (Cabeçalho azul) */
+        .header {
+            background: linear-gradient(180deg, var(--primary-start), var(--primary-end));
+            color: white;
+            padding: 15px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Estilo do Conteúdo Principal (Abaixo do Header) */
+        .content {
+            padding: 24px 0;
+            color: var(--text-color);
+        }
 
-    .screen {
-      padding: 18px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      color: white;
-    }
+        .content h1 {
+            padding: 0 24px;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
 
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.1);
-      margin-bottom: 15px;
-    }
+        .balance-info {
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .balance-info span {
+            font-weight: 600;
+        }
 
-    .small-muted{
-      color: var(--muted);
-      font-size: 13px;
-    }
+        /* Estilo para a Lista de Opções do Menu Pix */
+        .pix-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--line-color);
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+        
+        .pix-option:last-child {
+            border-bottom: none;
+        }
 
-    a { text-decoration: none; color: inherit; }
+        .pix-option:hover {
+            background-color: #f7f7f7;
+        }
 
-    input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      color: #003b99;
-      font-size: 0.875rem;
-    }
+        .option-details {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
 
-    input::placeholder {
-      color: #6b7280;
-    }
-
-    .action-btn {
-      display: block;
-      width: 100%;
-      background-color: #00c3ff;
-      color: white;
-      font-weight: 600;
-      text-align: center;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: background 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .action-btn:hover { background-color: #00a6e6; }
-
-    #qrSection {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 12px;
-    }
-
-    #qrcode { margin: 15px 0; }
-
-    /* Modal Fullscreen */
-    #pixModal {
-      display: none;
-      position: fixed;
-      z-index: 50;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    #pixModal .modal-content {
-      width: 100%;
-      max-width: 400px;
-      background: white;
-      color: #003b99;
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-      overflow-y: auto;
-      max-height: 90%;
-    }
-
-    .close-btn {
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #003b99;
-    }
-
-    .grid-scroll::-webkit-scrollbar { display: none; }
-  </style>
+        .option-details svg {
+            color: var(--icon-color);
+            width: 24px;
+            height: 24px;
+        }
+        
+        .option-details .text {
+            font-size: 1.05rem;
+        }
+        
+        .arrow-icon {
+            color: var(--icon-color);
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+        
+        /* Esconder o cursor (ícone animado) */
+        .cursor-animation {
+            display: none; 
+        }
+    </style>
 </head>
 <body>
 <div class="phone">
-  <div class="screen">
-    <!-- Topo -->
-    <div class="flex items-center justify-between mb-4">
-      <a href="telainicial.html" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/90">←</a>
-      <div class="flex items-center gap-2 text-white">
-        <div class="bg-white text-[#0b3e86] font-bold rounded-full w-8 h-8 flex items-center justify-center">EN</div>
-        <div class="text-sm font-semibold">Elisa Nunes</div>
-      </div>
-      <div class="w-8"></div>
-    </div>
+    <div class="header">
+        <a href="telainicial.html" class="text-2xl">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+        </a>
+        <div class="text-lg font-semibold">Pix</div>
+        <div class="w-6"></div> </div>
 
-    <!-- Título PIX -->
-    <div class="chip text-white text-xs">
-      <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
-      <span class="small-muted">💸 ENVIAR PIX</span>
-    </div>
+    <div class="content">
+        <h1>Pix</h1>
+        
+        <div class="balance-info">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.988 5.5A7.962 7.962 0 0 0 3 12c0 1.92.583 3.712 1.574 5.242M10.5 14.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0-1.92-.583-3.712-1.574-5.242A7.962 7.962 0 0 0 12 5a7.962 7.962 0 0 0-4.074 1.074" />
+            </svg>
+            Valor disponível em conta: <span>R$ 5.250,00</span>
+        </div>
 
-    <!-- Input e Botão sem fundo extra -->
-    <input type="text" placeholder="E-mail, CPF, telefone ou chave aleatória" class="mb-2"/>
-    <button id="openModal" class="action-btn">Enviar PIX</button>
-    <div class="mt-2 text-xs small-muted">Saldo disponível: R$ 5.250,00</div>
-  </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.06 60.06 0 0 1 12.5-3.05c1.336.565 2.84 1.054 4.35 1.054a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6.75zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z" />
+                            </svg>
+                            <span class="text">Pagar</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75V3h-3v3.75h3zm3 0v-3h3v3.75h-3zm-3 3.75h-3v3h3v-3zM16.5 6.75h3v3.75h-3v-3.75zM19.5 10.5h-3v3h3v-3zM6.75 16.5h3v3.75h-3v-3.75zM10.5 16.5h3v3.75h-3v-3.75zM16.5 16.5h3v3.75h-3v-3.75z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 12h.01V12.01h-.01z" />
+                            </svg>
+                            <span class="text">Ler QR Code</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5v-2.75a3 3 0 0 0-3-3h-2.5a3 3 0 0 0-3 3v2.75" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15h7.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 11.25h7.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            </svg>
+                            <span class="text">Pix copia e cola</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <span class="text">Cobrar</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c-1.28-4.576-6.49-7.5-7.5-7.5S4.78 7.424 3.5 12c1.28 4.576 6.49 7.5 7.5 7.5s6.22-2.924 7.5-7.5Z" />
+                            </svg>
+                            <span class="text">Minhas chaves</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 3h6m-6 3h6m-6 3h6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 7.5v12A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 19.5V7.5Z" />
+                            </svg>
+                            <span class="text">Extrato Pix</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 12a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 12a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z" />
+                            </svg>
+                            <span class="text">Limite Pix</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" class="pix-option">
+                        <div class="option-details">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75a9.75 9.75 0 0 0 9.75 9.75h4.5c2.209 0 4-1.791 4-4V6.75c0-2.209-1.791-4-4-4H9.75A9.75 9.75 0 0 0 2.25 12.75Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12h.01V12.01h-.01Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15h.01V15.01h-.01Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 12h.01V12.01h-.01Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15h.01V15.01h-.01Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 12h.01V12.01h-.01Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 15h.01V15.01h-.01Z" />
+                            </svg>
+                            <span class="text">Atendimento</span>
+                        </div>
+                        <span class="arrow-icon">></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        </div>
 </div>
-
-<!-- Modal Fullscreen -->
-<div id="pixModal">
-  <div class="modal-content">
-    <span class="close-btn" id="closeModal">&times;</span>
-    <div id="modalText">
-      <p>⚠️ <strong>Atenção, Cliente</strong></p>
-      <p class="mt-2">Identificamos pendências financeiras em outros bancos em seu CPF. Para liberação segura do limite, é necessário depósito da taxa de liberação.</p>
-      <button id="payBtn" class="action-btn">Pagar</button>
-      <a href="https://wa.me/5511999999999" target="_blank" class="action-btn mt-2">WhatsApp</a>
-    </div>
-    <div id="qrSection" style="display:none;">
-      <div id="qrcode"></div>
-      <button id="copyQR" class="action-btn">Copiar Código QR</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  const modal = document.getElementById("pixModal");
-  const btn = document.getElementById("openModal");
-  const close = document.getElementById("closeModal");
-  const payBtn = document.getElementById("payBtn");
-  const qrSection = document.getElementById("qrSection");
-  const modalText = document.getElementById("modalText");
-  const copyQR = document.getElementById("copyQR");
-
-  btn.onclick = function() { modal.style.display = "flex"; }
-  close.onclick = function() {
-    modal.style.display = "none";
-    qrSection.style.display = "none";
-    modalText.style.display = "block";
-    document.getElementById("qrcode").innerHTML = '';
-  }
-  window.onclick = function(event) {
-    if(event.target == modal){
-      modal.style.display = "none";
-      qrSection.style.display = "none";
-      modalText.style.display = "block";
-      document.getElementById("qrcode").innerHTML = '';
-    }
-  }
-
-  payBtn.onclick = function() {
-    modalText.style.display = "none";
-    qrSection.style.display = "flex";
-    document.getElementById("qrcode").innerHTML = '';
-    new QRCode(document.getElementById("qrcode"), {
-      text: "00020126360014BR.GOV.BCB.PIX0114+55119999999952040000530398654045.005802BR5925Elisa Nunes6009Sao Paulo62070503***6304ABCD",
-      width: 200,
-      height: 200
-    });
-  }
-
-  copyQR.onclick = function() {
-    const qrText = "00020126360014BR.GOV.BCB.PIX0114+55119999999952040000530398654045.005802BR5925Elisa Nunes6009Sao Paulo62070503***6304ABCD";
-    navigator.clipboard.writeText(qrText).then(()=>alert("Código QR copiado!"));
-  }
-</script>
 </body>
 </html>
